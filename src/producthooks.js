@@ -20,6 +20,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import { forwardRef } from "react";
 import MaterialTable from "material-table";
 import { post } from "./productactions";
+import { connect } from "react-redux";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -46,22 +47,22 @@ const tableIcons = {
 };
 
 function Producthooks(props) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(get1());
+   props.get1();
   }, []);
 
-  const { data, loading, error } = useSelector(
-    (state) => state.products,
-    shallowEqual
-  );
-  const [states,setStates]=useState(data);
- if (error) {
-   console.log(error);
-   return <Errors error={error} />;
- }
+  // const { data, loading, error } = useSelector(
+  //   (state) => state.products,
+  //   shallowEqual
+  // );
+  const [states, setStates] = useState();
+  if (props.error) {
+    console.log(props.error);
+    return <Errors error={props.error} />;
+  }
 
-  return loading ? (
+  return props.loading ? (
     <div>Loading...</div>
   ) : (
     <div>
@@ -70,47 +71,57 @@ function Producthooks(props) {
         title="Editable Preview"
         columns={[
           { title: "Id", field: "id", editable: "never" },
-          { title: "State", field: "stateName" },
+          { title: "State", field: "addressReason" },
         ]}
-        data={data}
-          editable={{
-            onRowAdd: (newData) =>
-              new Promise((resolve, reject) => {
-                console.log(newData.stateName)
-                setTimeout(() => {
-                  
-                  setStates(newData)
-                  // this.setState({ ...this.state.data, newData });
-                  dispatch(post(states));
-                  resolve();
-                }, 1000);
-              }),
-        //   onRowUpdate: (newData, oldData) =>
-        //     new Promise((resolve, reject) => {
-        //       setTimeout(() => {
-        //         const dataUpdate = [...data];
-        //         const index = oldData.tableData.id;
-        //         dataUpdate[index] = newData;
-        //         setData([...dataUpdate]);
+        data={props.data}
+        editable={{
+          onRowAdd: (newData) =>
+            new Promise((resolve, reject) => {
+              console.log(newData);
+              setTimeout(() => {
+                setStates(newData.addressReason);
+                // this.setState({ ...this.state.data, newData });
+                props.post(newData.addressReason);
+                resolve();
+              }, 1000);
+            }),
+          //   onRowUpdate: (newData, oldData) =>
+          //     new Promise((resolve, reject) => {
+          //       setTimeout(() => {
+          //         const dataUpdate = [...data];
+          //         const index = oldData.tableData.id;
+          //         dataUpdate[index] = newData;
+          //         setData([...dataUpdate]);
 
-        //         resolve();
-        //       }, 1000);
-        //     }),
-        //   onRowDelete: (oldData) =>
-        //     new Promise((resolve, reject) => {
-        //       setTimeout(() => {
-        //         const dataDelete = [...data];
-        //         const index = oldData.tableData.id;
-        //         dataDelete.splice(index, 1);
-        //         setData([...dataDelete]);
+          //         resolve();
+          //       }, 1000);
+          //     }),
+          //   onRowDelete: (oldData) =>
+          //     new Promise((resolve, reject) => {
+          //       setTimeout(() => {
+          //         const dataDelete = [...data];
+          //         const index = oldData.tableData.id;
+          //         dataDelete.splice(index, 1);
+          //         setData([...dataDelete]);
 
-        //         resolve();
-        //       }, 1000);
-        //     }),
-          }}
+          //         resolve();
+          //       }, 1000);
+          //     }),
+        }}
       />
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  data: state.products.data,
+  loading: state.products.loading,
+  error: state.products.error,
+});
+const mapDispatchToProps=dispatch=>{
+  return{
+    get1:()=>dispatch(get1()),
+    post:(data)=>dispatch(post(data))
+  }
+}
 
-export default Producthooks;
+export default connect(mapStateToProps,mapDispatchToProps)(Producthooks);

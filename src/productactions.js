@@ -6,7 +6,7 @@ export function get() {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token 85af910fdc0bc0d06e808606f291378c08304a470a4c81900295aafc165566e9"
+      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc"
     );
 
     var requestOptions = {
@@ -16,7 +16,7 @@ export function get() {
     };
 
     return fetch(
-      "http://3.22.17.212:9000/api/v1/resManager/address/states/",
+      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
       requestOptions
     )
       .then((response) => {
@@ -35,8 +35,8 @@ export const get1 = () => {
   return (dispatch) => {
     dispatch(fetchProductsBegin());
     getnetwork(
-      "http://3.22.17.212:9000/api/v1/resManager/address/states/",
-      "Token 85af910fdc0bc0d06e808606f291378c08304a470a4c81900295aafc165566e9",
+      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
+      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc",
       ""
     ).then((response) => {
       if (response.status >= 200 && response.status <= 299) {
@@ -55,32 +55,34 @@ export function post(raw) {
   return (dispatch) => {
     // dispatch(fetchProductsBegin());
 
+    console.log("response from post",)
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token 85af910fdc0bc0d06e808606f291378c08304a470a4c81900295aafc165566e9"
+      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc"
     );
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify({ addressReason:raw }),
       redirect: "follow",
     };
 
     return fetch(
-      "http://3.22.17.212:9000/api/v1/resManager/address/states/",
+      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
       requestOptions
     )
       .then((response) => {
+        console.log("response from post",response)
         if (response.status >= 200 && response.status <= 299) {
-          response.json().then((result) => get);
+          response.json().then((result) => dispatch(get1()));
         } else {
-          dispatch(fetchProductsFailure(response));
+          // dispatch(fetchProductsFailure(response));
         }
       })
-      .catch((error) => dispatch(fetchProductsFailure(error)));
+      .catch((error) => console.log(error));
   };
 }
 export const FETCH_PRODUCTS_BEGIN = "FETCH_PRODUCTS_BEGIN";

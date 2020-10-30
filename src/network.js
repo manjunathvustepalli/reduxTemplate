@@ -2,7 +2,7 @@ import Axios from "axios";
 let res = [];
 
 export const getnetwork = async (url, token, params) => {
-//   console.log("//////////////////////////////");
+  console.log("////////////////////////////// from network tab");
 //   var myHeaders = new Headers();
 //   myHeaders.append("Authorization", token);
 
@@ -23,19 +23,80 @@ export const getnetwork = async (url, token, params) => {
         Authorization: token,
       },params
     })
-      
-        
-
       .catch((error) => {
-        // console.log("///////////////////////////");
-      //   console.log(error);
+        
       return error
        
       });
       return response;
-    // if (res.status === 200) {
-    //   return res;
-    // } else {
-    //   return "";
-    // }
+   
 };
+export const post = async (url, token, formdata) => {
+  let headers = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+  await Axios.post(url, formdata, headers)
+    .then((response) => {
+      res = response;
+      // ShowSuccessSnackbar("Added succesfully")
+    })
+    .catch((error) => {
+      res = error;
+      // console.log(error.response.status)
+      // if(error.response.status===401){
+
+      // }
+    });
+  return res;
+};
+export const put = async (url, token, formdata) => {
+  let headers = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+  return await Axios.put(url, formdata, headers)
+    .then((response) => {
+      res = response;
+      // ShowSuccessSnackbar("Added succesfully")
+    })
+    .catch((error) => {
+      res = error;
+      // console.log(error.response.status)
+      // if(error.response.status===401){
+
+      // }
+    });
+  return res;
+};
+export const del = async (url, token) => {
+  let headers = {
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+  };
+  return await Axios.delete(url, headers)
+    .then((response) => {
+      res = response;
+      // ShowSuccessSnackbar("Added succesfully")
+    })
+    .catch((error) => {
+      res = error;
+      // console.log(error.response.status)
+      // if(error.response.status===401){
+
+      // }
+    });
+  return res;
+};
+
+  
+
+
+
+
