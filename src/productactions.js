@@ -33,7 +33,7 @@ export function get() {
 }
 export const get1 = () => {
   return (dispatch) => {
-    dispatch(fetchProductsBegin());
+    // dispatch(fetchProductsBegin());
     getnetwork(
       "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
       "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc",
@@ -66,7 +66,7 @@ export function post(raw) {
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({ addressReason:raw }),
+      body: JSON.stringify({raw}),
       redirect: "follow",
     };
 
@@ -77,7 +77,7 @@ export function post(raw) {
       .then((response) => {
         console.log("response from post",response)
         if (response.status >= 200 && response.status <= 299) {
-          response.json().then((result) => dispatch(get1()));
+          response.json().then((result) => get);
         } else {
           // dispatch(fetchProductsFailure(response));
         }

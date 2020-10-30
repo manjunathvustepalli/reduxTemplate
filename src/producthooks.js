@@ -19,7 +19,11 @@ import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 import { forwardRef } from "react";
 import MaterialTable from "material-table";
-import { post } from "./productactions";
+import {
+  post,
+  FETCH_PRODUCTS_BEGIN,
+  fetchProductsBegin,
+} from "./productactions";
 import { connect } from "react-redux";
 
 const tableIcons = {
@@ -49,7 +53,10 @@ const tableIcons = {
 function Producthooks(props) {
   // const dispatch = useDispatch();
   useEffect(() => {
-   props.get1();
+    // props.dispatch({ type: FETCH_PRODUCTS_BEGIN });
+    props.begin();
+    props.get1();
+    console.log(props);
   }, []);
 
   // const { data, loading, error } = useSelector(
@@ -117,11 +124,12 @@ const mapStateToProps = (state) => ({
   loading: state.products.loading,
   error: state.products.error,
 });
-const mapDispatchToProps=dispatch=>{
-  return{
-    get1:()=>dispatch(get1()),
-    post:(data)=>dispatch(post(data))
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    get1: () => dispatch(get1()),
+    post: (data) => dispatch(post(data)),
+    begin: () => dispatch(fetchProductsBegin()),
+  };
+};
 
-export default connect(mapStateToProps,mapDispatchToProps)(Producthooks);
+export default connect(mapStateToProps, mapDispatchToProps)(Producthooks);
