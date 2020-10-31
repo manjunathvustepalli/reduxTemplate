@@ -6,7 +6,7 @@ export function get() {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc"
+      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2"
     );
 
     var requestOptions = {
@@ -36,7 +36,7 @@ export const get1 = () => {
     // dispatch(fetchProductsBegin());
     getnetwork(
       "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
-      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc",
+      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2",
       ""
     ).then((response) => {
       if (response.status >= 200 && response.status <= 299) {
@@ -51,22 +51,22 @@ export const get1 = () => {
   };
 };
 export function post(raw) {
-  console.log("working from product actions",raw);
+  console.log("working from product actions", raw);
   return (dispatch) => {
     // dispatch(fetchProductsBegin());
 
-    console.log("response from post",)
+    console.log("response from post");
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token c54b551eea31943f58cf37b9012666a55d1a9f08d02862e51f33fa66c5d641dc"
+      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2"
     );
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({raw}),
+      body: JSON.stringify({"addressReason": raw }),
       redirect: "follow",
     };
 
@@ -75,9 +75,9 @@ export function post(raw) {
       requestOptions
     )
       .then((response) => {
-        console.log("response from post",response)
+        console.log("response from post", response);
         if (response.status >= 200 && response.status <= 299) {
-          response.json().then((result) => get);
+          response.json().then((result) => dispatch(get1()));
         } else {
           // dispatch(fetchProductsFailure(response));
         }
