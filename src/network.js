@@ -2,22 +2,6 @@ import Axios from "axios";
 let res = [];
 
 export const getnetwork = async (url, token, params) => {
-  console.log("////////////////////////////// from network tab");
-//   var myHeaders = new Headers();
-//   myHeaders.append("Authorization", token);
-
-//   var requestOptions = {
-//     method: "GET",
-//     headers: myHeaders,
-//     redirect: "follow",
-//   };
-//   // const { classes } = this.props;
-//    fetch(url, requestOptions)
-    
-//     .then((result) => {return result.json()})
-//     .catch((error) => {
-//       return error;
-//     });
    let response= await Axios.get(url, {
       headers: {
         Authorization: token,
@@ -38,19 +22,15 @@ export const post = async (url, token, formdata) => {
       "Content-Type": "application/json",
     },
   };
-  await Axios.post(url, formdata, headers)
-    .then((response) => {
-      res = response;
-      // ShowSuccessSnackbar("Added succesfully")
-    })
-    .catch((error) => {
-      res = error;
-      // console.log(error.response.status)
-      // if(error.response.status===401){
-
-      // }
-    });
-  return res;
+   let response = await Axios.post(url, formdata, headers)
+     .then((response) => {
+       res = response;
+       // ShowSuccessSnackbar("Added succesfully")
+     })
+     .catch((error) => {
+      return error;
+     });
+  return response;
 };
 export const put = async (url, token, formdata) => {
   let headers = {
@@ -59,19 +39,19 @@ export const put = async (url, token, formdata) => {
       "Content-Type": "application/json",
     },
   };
-  return await Axios.put(url, formdata, headers)
+  let response= await Axios.put(url, formdata, headers)
     .then((response) => {
       res = response;
       // ShowSuccessSnackbar("Added succesfully")
     })
     .catch((error) => {
-      res = error;
+     return error
       // console.log(error.response.status)
       // if(error.response.status===401){
 
       // }
     });
-  return res;
+  return response;
 };
 export const del = async (url, token) => {
   let headers = {
@@ -80,19 +60,19 @@ export const del = async (url, token) => {
       "Content-Type": "application/json",
     },
   };
-  return await Axios.delete(url, headers)
+  let response= await Axios.delete(url, headers)
     .then((response) => {
       res = response;
       // ShowSuccessSnackbar("Added succesfully")
     })
     .catch((error) => {
-      res = error;
+     return error
       // console.log(error.response.status)
       // if(error.response.status===401){
 
       // }
     });
-  return res;
+  return response;
 };
 
   

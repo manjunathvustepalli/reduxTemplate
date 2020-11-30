@@ -6,7 +6,7 @@ export function get() {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2"
+      "Token daa30acdddd0e69ebe90ec203d3c21a10d68bb0c9605d09df813e43024171ed0"
     );
 
     var requestOptions = {
@@ -36,7 +36,7 @@ export const get1 = () => {
     // dispatch(fetchProductsBegin());
     getnetwork(
       "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
-      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2",
+      "Token daa30acdddd0e69ebe90ec203d3c21a10d68bb0c9605d09df813e43024171ed0",
       ""
     ).then((response) => {
       if (response.status >= 200 && response.status <= 299) {
@@ -59,14 +59,14 @@ export function post(raw) {
     var myHeaders = new Headers();
     myHeaders.append(
       "Authorization",
-      "Token c450c0884e917b506508d455fcb0b5392d5e720229c51bccb47e615711dabdf2"
+      "Token daa30acdddd0e69ebe90ec203d3c21a10d68bb0c9605d09df813e43024171ed0"
     );
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: JSON.stringify({"addressReason": raw }),
+      body: JSON.stringify({ addressReason: raw }),
       redirect: "follow",
     };
 
