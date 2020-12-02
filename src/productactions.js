@@ -16,7 +16,7 @@ export function get() {
     };
 
     return fetch(
-      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
+     process.env.REACT_APP_URL+"api/v1/resManager/address/reasons/",
       requestOptions
     )
       .then((response) => {
@@ -35,7 +35,8 @@ export const get1 = () => {
   return (dispatch) => {
     // dispatch(fetchProductsBegin());
     getnetwork(
-      "http://3.22.17.212:9000/api/v1/resManager/address/reasons/",
+      process.env.REACT_APP_URL +
+        "api/v1/resManager/address/reasons/",
       "Token daa30acdddd0e69ebe90ec203d3c21a10d68bb0c9605d09df813e43024171ed0",
       ""
     ).then((response) => {

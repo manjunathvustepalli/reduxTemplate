@@ -2,6 +2,7 @@ import Axios from "axios";
 let res = [];
 
 export const getnetwork = async (url, token, params) => {
+  // let token=Cookies.get("token")
    let response= await Axios.get(url, {
       headers: {
         Authorization: token,
